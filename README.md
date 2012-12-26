@@ -1,0 +1,4 @@
+minidocs
+========
+
+Mini documentation module.
