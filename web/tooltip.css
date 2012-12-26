@@ -134,3 +134,14 @@ code span[data-tooltip]:focus:after
     /* Add a Text shadow */
     text-shadow:#2187c8 0 1px 0px; 
     }  
+
+footer.endnote,#endnote 
+    { 
+    text-align: right; 
+    font-size: 0.8em; 
+    }
+
+nav abbr
+    {
+    border-bottom: 1px dotted black;
+    }
