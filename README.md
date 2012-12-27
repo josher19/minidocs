@@ -11,3 +11,5 @@ Mini documentation module.
 [RainbowCode]: http://rainbowco.de/
 [Stapes]: http://josher19.github.com/stapes/
 [NodeJS]: http://www.nodejs.org/
+
+Examples: [minidocs](http://josher19.github.com/minidocs/examples/minidocs.html), [Stapes][]
