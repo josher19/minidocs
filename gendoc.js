@@ -5,14 +5,21 @@
  */
 
 (function() {
+    
     var getdocs = require('./getdocs'),
         fs = require('fs'),
         path =require('path'),
         util = require('util'),
         args = process.argv.slice(2),
+        shownUsage = false,
         htemplate = __dirname + "/examples/TEMPLATE.html",
         jstemplate = __dirname + "/docs/TEMPLATE_docs.js" ;
         
+    function usage() {
+        console.log("Usage: " + path.basename(process.argv[1]) + " [-t template] [-j jstemplate] [--help] [--usage] files*.js");
+        console.log("Extracts /** comments */ and inserts them into html files as tooltips. ");
+    }
+    
     // could use nopt for this
     while (args[0] && args[0].charAt(0) == "-") {
         option = args.shift();
@@ -25,11 +32,12 @@
             console.log("Using %s as JS docs template", jstemplate);
         }
         else if (option == "-u" || option == "--usage" || option == "--help" || option == "-h") {
-            console.log("Usage: " + process.argv[1] + " [-t template] [-j jstemplate] [--help] [--usage] files*.js");
-            console.log("Extracts /** comments */ and inserts them into html files as tooltips. ");
+            usage();
             process.exit(0);
         } else {
             console.warn("Unknown option ignored: " + option);
+            if (!shownUsage) usage();
+            shownUsage = true;
         }
     }
     
