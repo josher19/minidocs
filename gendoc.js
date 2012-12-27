@@ -17,15 +17,14 @@
     while (args[0] && args[0].charAt(0) == "-") {
         option = args.shift();
         if (option == "-t" || option == "--template") {
-            args.shift();
             htemplate = args.shift();
+            console.log("Using %s as HTML template", htemplate);
         }
         else if (option == "-j" || option == "--jstemplate") {
-            args.shift();
             jstemplate = args.shift();
+            console.log("Using %s as JS docs template", jstemplate);
         }
         else if (option == "-u" || option == "--usage" || option == "--help" || option == "-h") {
-            args.shift();
             console.log("Usage: " + process.argv[1] + " [-t template] [-j jstemplate] [--help] [--usage] files*.js");
             console.log("Extracts /** comments */ and inserts them into html files as tooltips. ");
             process.exit(0);
@@ -92,6 +91,7 @@
         fs.writeFile(htmlname, html);
         fs.writeFile(jsname, jscode);
         console.log("Writing " + (jscode.length) + " bytes to file " + jsname);
+        console.log("Writing " + (html.length) + " bytes to file " + htmlname);
     }
     
     /** Make safe for HTML */

@@ -3,12 +3,25 @@
   /**
    * Quickly strip HTML
    */
-  var cleaner, getdocs, test_getdocs_function, test_getdocs_anon;
+  var cleaner, slashcomments, getdocs, test_getdocs_function, test_getdocs_anon;
   cleaner = function(comment){
     if (comment) {
       comment = comment.replace(/</gm, "&lt;").replace(/>/gm, "&gt;");
     }
     return comment;
+  };
+  /**
+   * Change // slash comments into star comments 
+   * First // becomes /**, last line adds end comment tag
+   */
+  slashcomments = function(file){
+    var slashToStar;
+    slashToStar = /((\s*\/\/\s*.*\n)+)\s*(.*)function\s*([a-zA-Z_0-9]*)\(/gm;
+    return file.replace(slashToStar, function(){
+      var m;
+      m = arguments;
+      return m[0].replace(m[2], m[2] + "\n */\n").replace("//", "/**").replace(/\s*\/\//g, " ");
+    });
   };
   /**
     * Extract comments from a file 
@@ -20,6 +33,10 @@
     file = file.replace(/\n\s*\*[^/]\s*/g, " ");
     regx = /\/\*\*+\s*(.*)\s*\*\/\n((.*\n?)\s+(\S+)\s*(=|:))?\s*function\s*(\w*)\s*\(/m;
     res = file.match(regx);
+    if (!res) {
+      file = slashcomments(file);
+      res = file.match(regx);
+    }
     while (res) {
       docs[res[4] || res[6]] = cleanup(res[1]);
       res = res.input.substring(res[0].length + res.index).match(regx);

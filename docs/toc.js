@@ -19,6 +19,6 @@ var toc = function (nav, selector){
   return results$;
 }
 
-if (Rainbow && Rainbow.color) Rainbow.color(toc);
-else if (document.querySelector) setTimeout(function() { toc(document.querySelector('nav ul.toc')) }, 900);
+// if (Rainbow && Rainbow.color) Rainbow.color(toc); else 
+// if (document.querySelector) setTimeout(function() { toc(document.querySelector('nav ul.toc')) }, 900);
 

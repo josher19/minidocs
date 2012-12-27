@@ -16,7 +16,7 @@ slashcomments = (file) ->
     file.replace slashToStar, -> 
         m = arguments
         # m[2] == last comment, m[0] = full match
-        m[0].replace(m[2], m[2] + "\n */\n").replace("//", "/**").replace(/ ?\/\//g, " ")
+        m[0].replace(m[2], m[2] + "\n */\n").replace("//", "/**").replace(/\s*\/\//g, " ")
 
 /**
   * Extract comments from a file 
