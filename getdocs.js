@@ -6,7 +6,9 @@
   var cleaner, slashcomments, getdocs, test_getdocs_function, test_getdocs_anon;
   cleaner = function(comment){
     if (comment) {
+      // erase @params, @see, and @returns to make it shorter
       comment = comment.replace(/</gm, "&lt;").replace(/>/gm, "&gt;");
+      comment = comment.replace(/\*\s+@.*$/g, "").replace(/ +\* /g, "\n").trim();
     }
     return comment;
   };

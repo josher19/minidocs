@@ -17,8 +17,15 @@ var docs =
 }
 if (typeof require !== "undefined") minidocs = require('../minidocs');
 if (typeof exports === "object") { exports.minidocs = minidocs, exports.docs = docs; }
+
 my.docs = docs;
+
+Rainbow.onHighlight(function(code, language) { 
+    minidocs(docs, code.querySelectorAll ? code.querySelectorAll('span.function.call,span.method') : '');
+}); 
+
 var tstart = new Date();
+/*
 // minidocs.last.redo(docs,'code span.function.call')
 startDocs = my.startDocs = function() { 
     setTimeout(function () { 
@@ -27,14 +34,15 @@ startDocs = my.startDocs = function() {
 };
 // minidocs(docs).hits || (Rainbow && Rainbow.color ? Rainbow.color(startDocs) : setTimeout(startDocs, 1000));
 // minidocs(docs, toc).hits || (Rainbow && Rainbow.color ? Rainbow.color(startDocs) : setTimeout(startDocs, 1000));
+*/
 
 /**
  * adds event listener to start highlighting
- */
     if (window.addEventListener) {
          window.addEventListener('load', startDocs, false);
     } else {
         window.attachEvent('onload', startDocs);
     }
+ */
 
 })(this)

@@ -1,7 +1,7 @@
 var toc = function (nav, selector){
   nav = nav || document.querySelector('nav ul.toc');
   var i$, ref$, len$, span, txt, li, a, results$ = [];
-  for (i$ = 0, len$ = (ref$ = document.querySelectorAll(selector || 'code span.entity.function,span.function.name,span.meta.function-call')).length; i$ < len$; ++i$) {
+  for (i$ = 0, len$ = (ref$ = selector || document.querySelectorAll('code span.entity.function,span.function.name,span.meta.function-call')).length; i$ < len$; ++i$) {
     span = ref$[i$];
     txt = span.textContent || span.innerHTML;
     txt = txt.replace(/\W/g, "");
@@ -20,5 +20,9 @@ var toc = function (nav, selector){
   return results$;
 }
 
-if (typeof Rainbow !== "undefined" && Rainbow.color) Rainbow.color(toc); else 
-setTimeout(function() { toc(); }, 900);
+if (this.Rainbow) {
+    var nav = document.querySelector('nav ul.toc');
+    this.Rainbow.done = function (code, language) {
+        toc(nav, code.querySelectorAll ? code.querySelectorAll('span.entity.function,span.function.name,span.meta.function-call') : '');
+    };
+}
